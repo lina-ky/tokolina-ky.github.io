@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Toko Lina</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:#0c0f14;
+color:white;
+}
+
+/* BACKGROUND */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle,#00ffff33 1px,transparent 1px);
+background-size:35px 35px;
+animation:bgmove 20s linear infinite;
+z-index:-1;
+}
+
+@keyframes bgmove{
+from{background-position:0 0;}
+to{background-position:200px 200px;}
+}
+
+/* LOGIN */
+
+#loginPage{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:url("https://files.catbox.moe/tkdgmm.png");
+background-size:cover;
+}
+
+.loginBox{
+padding:50px;
+width:320px;
+text-align:center;
+background:rgba(17,22,29,0.9);
+border-radius:60px;
+position:relative;
+overflow:hidden;
+}
+
+.loginBox::before{
+content:"";
+position:absolute;
+inset:-3px;
+border-radius:60px;
+background:linear-gradient(45deg,red,orange,yellow,lime,cyan,blue,magenta,red);
+background-size:400%;
+animation:rgbBorder 8s linear infinite;
+z-index:-1;
+}
+
+@keyframes rgbBorder{
+0%{background-position:0%}
+100%{background-position:400%}
+}
+
+/* INPUT */
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:20px;
+border:none;
+background:#0c0f14;
+color:white;
+}
+
+/* BUTTON RGB */
+
+.bigButton{
+display:block;
+margin:25px auto;
+padding:18px 40px;
+font-size:18px;
+font-weight:700;
+border:none;
+border-radius:40px;
+cursor:pointer;
+
+background:linear-gradient(90deg,#ff00cc,#00ffff,#00ff88,#ffff00,#ff6600);
+background-size:300%;
+animation:rgbText 6s linear infinite;
+
+color:black;
+}
+
+@keyframes rgbText{
+0%{background-position:0%}
+100%{background-position:300%}
+}
+
+/* PAGE */
+
+.page{
+display:none;
+padding:20px;
+text-align:center;
+}
+
+/* JUDUL RGB */
+
+.judulHome{
+font-size:32px;
+font-weight:800;
+
+background:linear-gradient(90deg,#ff00cc,#00ffff,#00ff88,#ffff00,#ff6600);
+background-size:300%;
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:rgbText 6s linear infinite;
+}
+
+/* SEARCH */
+
+.search{
+width:100%;
+padding:14px;
+border-radius:20px;
+background:#11161d;
+border:none;
+color:white;
+margin-bottom:15px;
+}
+
+/* FILTER */
+
+.filter{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+justify-content:center;
+}
+
+.filter button{
+background:#11161d;
+border:none;
+color:white;
+padding:10px 18px;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* PRODUK RGB OVAL */
+
+.produk{
+padding:3px;
+margin-bottom:22px;
+border-radius:60px;
+
+background:linear-gradient(
+45deg,
+red,
+orange,
+yellow,
+lime,
+cyan,
+blue,
+magenta,
+red
+);
+
+background-size:400%;
+animation:rgbGerak 6s linear infinite;
+}
+
+.produkIsi{
+background:#11161d;
+border-radius:60px;
+padding:18px 25px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+@keyframes rgbGerak{
+0%{background-position:0%}
+100%{background-position:400%}
+}
+
+/* ICON */
+
+.icon{
+font-size:35px;
+margin-right:10px;
+}
+
+/* TEXT */
+
+.nama{
+font-weight:bold;
+font-size:18px;
+}
+
+.harga{
+color:#00ffff;
+}
+
+/* BELI BUTTON */
+
+.beli{
+padding:12px 25px;
+border-radius:30px;
+border:none;
+font-weight:bold;
+cursor:pointer;
+background:linear-gradient(45deg,#ff0055,#ff7b00);
+color:white;
+}
+
+/* FOTO BAWAH */
+
+.fotoBawah{
+margin-top:40px;
+text-align:center;
+}
+
+.fotoBawah img{
+width:90%;
+max-width:500px;
+border-radius:20px;
+box-shadow:0 0 25px #00ffff;
+}
+
+.fotoBawah p{
+margin-top:10px;
+color:#00ffff;
+}
+
+/* QR */
+
+#qrPage img{
+width:260px;
+margin-top:20px;
+border-radius:15px;
+box-shadow:0 0 25px #00ffff;
+}
+
+/* WA */
+
+.wa{
+background:#25D366;
+padding:15px 25px;
+border:none;
+border-radius:20px;
+margin-top:20px;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+  
+<audio id="musik" autoplay loop muted>
+<source src="asu.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener("click", function(){
+document.getElementById("musik").muted=false;
+document.getElementById("musik").play();
+});
+</script>
+
+<!-- LOGIN -->
+
+<div id="loginPage">
+
+<div class="loginBox">
+
+<h2>LOGIN TOKO LINA</h2>
+
+<input id="user" placeholder="Username">
+<input id="pass" type="password" placeholder="Password">
+
+<button class="bigButton" onclick="login()">LOGIN</button>
+
+</div>
+
+</div>
+
+<!-- HOME -->
+
+<div id="homePage" class="page">
+
+<h1 class="judulHome">
+Halo Selamat Datang di Toko Lina
+</h1>
+
+<p>Silahkan tekan tombol di bawah untuk menuju produk</p>
+
+<button class="bigButton" onclick="openProduk()">
+MENUJU PRODUK
+</button>
+
+</div>
+
+<!-- PRODUK -->
+
+<div id="produkPage" class="page">
+
+<h2 class="judulHome">
+Selamat datang di Toko Lina yang dikenal toko paling murah
+</h2>
+
+<input class="search" placeholder="Cari produk..." onkeyup="searchProduk(this.value)">
+
+<div class="filter">
+<button onclick="filterProduk('all')">SEMUA</button>
+<button onclick="filterProduk('nokos')">NOKOS</button>
+<button onclick="filterProduk('panel')">PANEL</button>
+</div>
+
+<div class="produk" data="nokos">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">📱</div>
+<div>
+<div class="nama">Nokos Indonesia</div>
+<div class="harga">Rp 1.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<div class="produk" data="panel">
+<div class="produkIsi">
+
+<div style="display:flex;align-items:center">
+<div class="icon">💻</div>
+<div>
+<div class="nama">Panel 1GB</div>
+<div class="harga">Rp 2.000</div>
+</div>
+</div>
+
+<button class="beli" onclick="beli()">BELI</button>
+
+</div>
+</div>
+
+<!-- FOTO PALING BAWAH -->
+
+<div class="fotoBawah">
+
+<img src="https://files.catbox.moe/tkdgmm.png">
+
+<p>Terima kasih sudah berbelanja di Toko Lina</p>
+
+</div>
+
+</div>
+
+<!-- QR -->
+
+<div id="qrPage" class="page">
+
+<h2>SCAN QR PEMBAYARAN</h2>
+
+<img src="qr.png">
+
+<p>Kirim bukti transfer ke WhatsApp Lina</p>
+
+<a href="https://wa.me/6281234567890">
+<button class="wa">Kirim Bukti Transfer</button>
+</a>
+
+</div>
+
+<script>
+
+function login(){
+
+if(user.value=="admin" && pass.value=="1234"){
+
+loginPage.style.display="none"
+homePage.style.display="block"
+musik.play()
+
+}else{
+
+alert("Login salah")
+
+}
+
+}
+
+function openProduk(){
+
+homePage.style.display="none"
+produkPage.style.display="block"
+
+}
+
+function beli(){
+
+produkPage.style.display="none"
+qrPage.style.display="block"
+
+}
+
+function searchProduk(text){
+
+let produk=document.querySelectorAll(".produk")
+
+produk.forEach(p=>{
+
+if(p.innerText.toLowerCase().includes(text.toLowerCase())){
+
+p.style.display="block"
+
+}else{
+
+p.style.display="none"
+
+}
+
+})
+
+}
+
+function filterProduk(kat){
+
+let produk=document.querySelectorAll(".produk")
+
+produk.forEach(p=>{
+
+if(kat=="all"){
+
+p.style.display="block"
+
+}else if(p.getAttribute("data")==kat){
+
+p.style.display="block"
+
+}else{
+
+p.style.display="none"
+
+}
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
